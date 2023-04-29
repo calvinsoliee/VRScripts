@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ClimbController : MonoBehaviour
 {
     public GameObject xrRig;
+
     private int grabCount;
     private Rigidbody rigidbody;
     private float groundLevel;
@@ -13,26 +14,10 @@ public class ClimbController : MonoBehaviour
     {
         if (xrRig == null)
             xrRig = GameObject.Find("XR Rig");
+
         grabCount = 0;
         rigidbody = xrRig.GetComponent<Rigidbody>();
         groundLevel = xrRig.transform.position.y;
-    }
-    public void Grab()
-    {
-        grabCount++;
-        rigidbody.isKinematic = true;
-    }
-    public void Pull(Vector3 distance)
-    {
-        xrRig.transform.Translate(distance);
-    }
-    public void Release()
-    {
-        grabCount--;
-        if (grabCount == 0)
-        {
-            rigidbody.isKinematic = false;
-        }
     }
 
     private void Update()
@@ -45,6 +30,24 @@ public class ClimbController : MonoBehaviour
             rigidbody.isKinematic = true;
         }
     }
+
+    public void Grab()
+    {
+        grabCount++;
+        rigidbody.isKinematic = true;
+    }
+
+    public void Pull(Vector3 distance)
+    {
+        xrRig.transform.Translate(distance);
+    }
+
+    public void Release()
+    {
+        grabCount--;
+        if (grabCount == 0)
+        {
+            rigidbody.isKinematic = false;
+        }
+    }
 }
-
-

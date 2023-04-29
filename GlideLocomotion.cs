@@ -1,21 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GlideLocomotion : MonoBehaviour
 {
     public Transform rigRoot;
-    public float velocity = 2f;
-    public float rotationSpeed = 100f; //degrees per second
-    public Transform trackedTransform; //camera or controller, null for thumbstick
-
+    public float velocity = 2f; // meters per second
+    public float rotationSpeed = 100f; // degrees per second
+    [Tooltip("Assign tracked device for sideways direction. Leave null to use horizontal stick for rotation")]
+    public Transform trackedTransform; // camera or controller, null for thumbstick
 
     private void Start()
     {
         if (rigRoot == null)
-        {
             rigRoot = transform;
-        }
     }
 
     private void Update()
@@ -32,7 +30,8 @@ public class GlideLocomotion : MonoBehaviour
             moveDirection *= -forward * velocity * Time.deltaTime;
             rigRoot.Translate(moveDirection);
         }
-        if(trackedTransform == null)
+
+        if (trackedTransform == null)
         {
             float sideways = Input.GetAxis("XRI_Right_Primary2DAxis_Horizontal");
             if (sideways != 0f)
